@@ -1,7 +1,5 @@
 package bookrecom;
 
-package mypackage;
-
 public class BookRecommender {
     public static void main(String[] args) {
         // اتصال به دیتابیس Neo4j

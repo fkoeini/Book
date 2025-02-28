@@ -1,7 +1,5 @@
 package bookrecom;
 
-package mypackage;
-
 import org.neo4j.driver.*;
 
 public class Neo4jConnection {
@@ -32,6 +30,19 @@ public class Neo4jConnection {
         while (result.hasNext()) {
             Record record = result.next();
             System.out.println(record.get("recommendedTitle").asString());
+
+public void addSimilarity(String title1, String title2) {
+    String query = "MATCH (b1:Book {title: $title1}), (b2:Book {title: $title2}) " +
+                   "MERGE (b1)-[:SIMILAR_TO]->(b2)";
+    session.writeTransaction(tx -> tx.run(query, parameters("title1", title1, "title2", title2)));
+}
+
+            connection.addSimilarity("1984", "Brave New World");
+connection.addSimilarity("1984", "Fahrenheit 451");
+connection.addSimilarity("Brave New World", "Fahrenheit 451");
+
+
+            
         }
     }
 }
